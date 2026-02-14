@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const MONGODB_URI = "mongodb+srv://adeeshakavindu8_db_user:mxwfU4WkL2pVlBt5@cluster0.qmbdeny.mongodb.net/?appName=Cluster0";
+const MONGODB_URI = process.env.MONGODB_URI!;
 
 
 if (!MONGODB_URI) {
@@ -49,3 +49,5 @@ async function connectDB() {
     
     return cached.conn;
 }
+
+export default connectDB
