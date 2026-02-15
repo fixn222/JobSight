@@ -16,7 +16,7 @@ export async function initializeUserBoard(userId: string) {
 
         await connectDB();
         //check if board already exists
-        const existingBoard = await Board.findOne({ userId, name: "Job Hunt" });
+        const existingBoard = await Board.findOne({ userId , name: "Job Hunt" });
 
         if (existingBoard) {
 
