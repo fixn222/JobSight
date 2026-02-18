@@ -8,33 +8,60 @@ import { Plus } from 'lucide-react';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
+import { createJobApplication } from '@/lib/actions/job-application.actions';
+import { error } from 'node:console';
+// import { error } from 'console';
 
 interface CreateJobApplicationDialogProp {
   columnId: string;
   boardId: string
 }
 
+const DEFAULT_FORM_DATA = {
+  company: "",
+  position: "",
+  location: "",
+  notes: "",
+  salary: "",
+  jobUrl: "",
+  tags: "",
+  description: "",
+
+}
+
 const CreateJobApplicationDialog = ({ columnId, boardId }: CreateJobApplicationDialogProp) => {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const [formData, setFormData] = useState({
-    company: "",
-    position: "",
-    location: "",
-    salary: "",
-    notes: "",
-    jobUrl: "",
-    tags: "",
-    description: "",
-  });
+  const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
 
+  
 
   async function handleSubmit(e : React.FormEvent) {
 
     e.preventDefault();
 
     try{
+
+    const result = await createJobApplication({
+      ...formData,
+      columnId,
+      boardId,
+      tags: formData.tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag.length > 0),
+      
+    });
+
+    if (!result.error) {
+     
+      setFormData(DEFAULT_FORM_DATA);
+      setOpen(false);
+      
+    }else{
+      console.error("failed to create a job application" , result.error)
+    }
 
     }catch (err){
       console.log(err);
@@ -57,18 +84,21 @@ const CreateJobApplicationDialog = ({ columnId, boardId }: CreateJobApplicationD
             Track a new job application
           </DialogDescription>
         </DialogHeader>
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor='company'>Company *</Label>
-                <Input id='company' onChange={(e) =>
+                <Input id='company'
+                value={formData.company} 
+                onChange={(e) =>
                   setFormData({ ...formData, company: e.target.value })}
-                  required />
+                   />
               </div >
               <div className="space-y-2">
                 <Label htmlFor='position'>Position *</Label>
-                <Input id='position' required
+                <Input id='position' 
+                value={formData.position}
                   onChange={(e) =>
                     setFormData({ ...formData, position: e.target.value })}
 
@@ -77,7 +107,8 @@ const CreateJobApplicationDialog = ({ columnId, boardId }: CreateJobApplicationD
               </div>
               <div className="space-y-2">
                 <Label htmlFor='location'>location </Label>
-                <Input id='location' required
+                <Input id='location' 
+                value={formData.location}
                   onChange={(e) =>
                     setFormData({ ...formData, location: e.target.value })}
                 />
@@ -85,7 +116,8 @@ const CreateJobApplicationDialog = ({ columnId, boardId }: CreateJobApplicationD
               </div>
               <div className="space-y-2">
                 <Label htmlFor='salary'>Salary </Label>
-                <Input placeholder="e.g., $100k - $150k" id='salary' required
+                <Input placeholder="e.g., $100k - $150k" id='salary' 
+                value={formData.salary}
                   onChange={(e) =>
                     setFormData({ ...formData, salary: e.target.value })}
                 />
@@ -95,6 +127,7 @@ const CreateJobApplicationDialog = ({ columnId, boardId }: CreateJobApplicationD
             <div className="space-y-2">
               <Label htmlFor='jobUrl'>job URL </Label>
               <Input placeholder="https://...." id='jobUrl'
+              value={formData.jobUrl}
                 onChange={(e) =>
                   setFormData({ ...formData, jobUrl: e.target.value })}
 
@@ -102,16 +135,17 @@ const CreateJobApplicationDialog = ({ columnId, boardId }: CreateJobApplicationD
             </div>
             <div className="space-y-2">
               <Label htmlFor='tags'>Tags (coma-seperated) </Label>
-              <Input placeholder="e.g., $100k - $150k" id='tags'
+              <Input placeholder="" id='tags'
+              value={formData.tags}
                 onChange={(e) =>
-                  setFormData({ ...formData, tags: e.target.value })}
+                  setFormData({ ...formData , tags: e.target.value })}
 
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor='description'>Description </Label>
               <Textarea rows={3} placeholder="Brief description of the role" id='description'
-
+                value={formData.tags}
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })}
 
@@ -120,7 +154,7 @@ const CreateJobApplicationDialog = ({ columnId, boardId }: CreateJobApplicationD
             <div className="space-y-2">
               <Label htmlFor='notes'>Notes </Label>
               <Textarea rows={4} placeholder="" id='notes'
-
+                value={formData.notes}
                 onChange={(e) =>
                   setFormData({ ...formData, notes: e.target.value })}
 

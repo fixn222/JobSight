@@ -53,4 +53,8 @@ To get a local copy up and running, follow these simple steps.
 *   `app/`: Contains the core application logic, including pages and API routes.
 *   `components/`: Contains the reusable React components.
 *   `lib/`: Contains the database models, authentication logic, and other utility functions.
+<<<<<<< HEAD
 *   `public/`: Contains the static assets like images and fonts.
+=======
+*   `public/`: Contains the static assets like images and fonts.
+>>>>>>> aa8bdb0 (implementing Create job Applications)

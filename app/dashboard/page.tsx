@@ -25,6 +25,9 @@ const DashBoard = async () => {
 
   }).populate({
     path : "columns" ,
+    populate : {
+      path : "jobApplications"
+    }
   })
 
  
