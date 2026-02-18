@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Job Application Tracker
+
+This is a Next.js application designed to help users track their job applications. It provides a Kanban board interface to visualize and manage the application process from "Applied" to "Hired" or "Rejected".
+
+## Tech Stack
+
+*   **Framework:** [Next.js](https://nextjs.org/)
+*   **Language:** [TypeScript](https://www.typescriptlang.org/)
+*   **Authentication:** [Better Auth](https://www.npmjs.com/package/better-auth)
+*   **Database:** [MongoDB](https://www.mongodb.com/) with [Mongoose](https://mongoosejs.com/)
+*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+*   **UI Components:** [Radix UI](https://www.radix-ui.com/)
+
+## Features
+
+*   User authentication (Sign up and Sign in)
+*   Kanban board to track job applications
+*   Create, edit, and delete job applications
+*   Drag and drop functionality to move applications between columns
+*   Responsive design for use on different devices
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow these simple steps.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*   Node.js and npm (or yarn/pnpm/bun)
+*   MongoDB instance (local or cloud)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  Clone the repo
+    ```sh
+    git clone https://github.com/your_username/job_application_tracker.git
+    ```
+2.  Install NPM packages
+    ```sh
+    npm install
+    ```
+3.  Set up your environment variables. You'll need to create a `.env.local` file in the root of the project and add your MongoDB connection string and other necessary variables.
+    ```
+    MONGODB_URI=your_mongodb_connection_string
+    ```
+4.  Run the development server
+    ```sh
+    npm run dev
+    ```
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*   `app/`: Contains the core application logic, including pages and API routes.
+*   `components/`: Contains the reusable React components.
+*   `lib/`: Contains the database models, authentication logic, and other utility functions.
+*   `public/`: Contains the static assets like images and fonts.
